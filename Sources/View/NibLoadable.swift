@@ -8,6 +8,7 @@
 
 #if canImport(UIKit)
 import UIKit
+import Foundation
 
 // MARK: Protocol Definition
 
@@ -18,7 +19,8 @@ import UIKit
 /// to be able to instantiate them from the NIB in a type-safe manner
 public protocol NibLoadable: AnyObject {
   /// The nib file to use to load a new instance of the View designed in a XIB
-  static var nib: UINib { get }
+    static var nib: UINib { get }
+    static var bundle: Bundle { get }
 }
 
 // MARK: Default implementation
@@ -27,7 +29,7 @@ public extension NibLoadable {
   /// By default, use the nib which have the same name as the name of the class,
   /// and located in the bundle of that class
   static var nib: UINib {
-    return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+      return UINib(nibName: String(describing: self), bundle: self.bundle)
   }
 }
 
