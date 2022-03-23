@@ -19,6 +19,7 @@ import UIKit
 public protocol NibOwnerLoadable: AnyObject {
   /// The nib file to use to load a new instance of the View designed in a XIB
   static var nib: UINib { get }
+    static var bundle: Bundle { get }
 }
 
 // MARK: Default implementation
@@ -27,7 +28,7 @@ public extension NibOwnerLoadable {
   /// By default, use the nib which have the same name as the name of the class,
   /// and located in the bundle of that class
   static var nib: UINib {
-    return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
+      return UINib(nibName: String(describing: self), bundle: self.bundle)
   }
 }
 
